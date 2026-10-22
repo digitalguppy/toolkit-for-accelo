@@ -1,0 +1,22 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const {JSDOM}=require('jsdom');
+const root=path.join(__dirname,'../extension');
+test('release settings save normally with legacy Outlook preferences and no Microsoft APIs',async t=>{
+  const dom=new JSDOM(fs.readFileSync(path.join(root,'settings.html'),'utf8'),{runScripts:'outside-only',url:'https://toolkit.test/settings.html#inbox'});
+  t.after(()=>dom.window.close());
+  const w=dom.window,saves=[];
+  w.matchMedia=()=>({matches:false,addEventListener(){}});
+  w.chrome={storage:{local:{get:async()=>({toolkitSettings:{outlookSyncMode:'read_archive',theme:'dark'}}),set:async value=>saves.push(value.toolkitSettings)}}};
+  for(const file of ['core.js','settings.js']) w.eval(fs.readFileSync(path.join(root,file),'utf8'));
+  await new Promise(resolve=>setTimeout(resolve,10));
+  assert.equal(w.document.querySelector('.outlook-feature'),null);
+  assert(!/Connect Microsoft|Outlook sync/.test(w.document.body.textContent));
+  assert.equal(w.document.documentElement.dataset.tkaSettingsTheme,'dark');
+  const toggle=w.document.getElementById('inboxDelete');toggle.checked=false;toggle.dispatchEvent(new w.Event('change',{bubbles:true}));
+  await new Promise(resolve=>setTimeout(resolve,10));
+  assert.equal(saves.at(-1).inboxDelete,false);
+  assert.equal(w.document.getElementById('status').textContent,'Saved. Open Accelo views update automatically.');
+});

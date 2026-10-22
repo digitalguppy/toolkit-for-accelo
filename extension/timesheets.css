@@ -1,0 +1,11 @@
+/* Match Accelo's relocation control while remaining visible off-hover. */
+td.tka-timesheet-cell .ts_against_mask {padding-right:74px;}
+td.tka-timesheet-cell.tka-timesheet-no-relocate .ts_against_mask {padding-right:38px;}
+td.tka-timesheet-cell button.tka-timesheet-timer {display:inline-flex!important;visibility:visible!important;opacity:1!important;position:absolute;right:3px!important;top:3px;align-items:center;justify-content:center;width:32px;height:28px;padding:3px;cursor:pointer;color:#25466a;background:#fff;border:1px solid #ccd3dc;border-radius:4px;}
+td.tka-timesheet-cell [tooltip="Relocate All Activities"] {right:38px!important;}
+td.tka-timesheet-cell button.tka-timesheet-timer svg {width:20px;height:20px;fill:currentColor;}
+html[data-tka-theme="dark"] td.tka-timesheet-cell button.tka-timesheet-timer {color:#b9d9ff!important;background:#243342!important;border-color:#60758a!important;}
+html[data-tka-theme="dark"] td.tka-timesheet-cell button.tka-timesheet-timer:hover {background:#344b60!important;}
+td.tka-timesheet-cell button.tka-timesheet-timer:disabled {cursor:wait;opacity:.55!important;}
+td.tka-timesheet-cell button.tka-timesheet-timer:focus-visible {outline:2px solid #478ddd;outline-offset:2px;}
+

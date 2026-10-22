@@ -1,0 +1,29 @@
+{
+  "name": "toolkit-for-accelo",
+  "version": "0.12.3",
+  "private": true,
+  "description": "Local source and validation for Toolkit for Accelo",
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.cjs",
+    "check": "node --check extension/core.js && node --check extension/content.js && node --check extension/settings.js && node --check extension/descriptions.js && node --check extension/theme.js && node --check extension/background.js && node --check extension/vendor/theme.js && node --check extension/vendor/theme-proxy.js && node --check extension/inbox.js && node --check extension/timesheet-core.js && node --check extension/timesheet-bridge.js && node --check extension/timesheets.js && node --check extension/retainers-core.js && node --check extension/retainers.js && node --check extension/retainers-bridge.js",
+    "build:icons": "node scripts/build-icons.cjs",
+    "package": "npm run build && npm run check && powershell -NoProfile -File scripts/package.ps1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "jsdom": "26.1.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "sharp": "0.35.5"
+  },
+  "dependencies": {
+    "@toast-ui/editor": "3.2.2",
+    "darkreader": "4.9.133",
+    "dompurify": "3.4.17",
+    "marked": "17.0.1"
+  },
+  "overrides": {
+    "dompurify": "$dompurify"
+  }
+}

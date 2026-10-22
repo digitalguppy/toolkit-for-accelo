@@ -1,0 +1,8 @@
+.tka-inbox-shortcut {display:inline-flex!important;align-items:center;gap:5px;margin-right:8px;cursor:pointer;font-family:inherit;font-size:inherit;}
+.tka-inbox-shortcut svg {width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.tka-inbox-delete {color:#e23c3c!important;background:#fff;border:1px solid #cbd3e3;border-radius:4px;padding:5px 10px;cursor:pointer;}
+.tka-inbox-delete:hover {background:#fff1f1;}
+.tka-inbox-delete:disabled {opacity:.55;cursor:default;}
+.tka-inbox-shortcut {min-width:88px;justify-content:center;}
+.tka-inbox-armed {background:#fff1f1;border-color:#e23c3c;}
+.tka-inbox-shortcut:focus-visible {outline:2px solid #478ddd;outline-offset:3px;}

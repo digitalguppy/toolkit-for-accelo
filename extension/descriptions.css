@@ -1,0 +1,40 @@
+[data-tka-desc-hidden] {display:none !important}
+[data-tka-desc-full] [data-element-name="description_textArea"]:not([data-tka-desc-hidden]) {display:block !important;-webkit-line-clamp:unset !important;max-height:none !important;overflow:visible !important}
+[data-tka-desc-full] [data-element-name="description_showMore"], [data-tka-desc-full] [data-element-name="description_showLess"] {display:none !important}
+[data-tka-desc-top] {display:contents !important}
+[data-tka-desc-top] > [data-tka-desc-heading] {order:-2 !important}
+[data-tka-desc-top] > [data-tka-desc-paper] {order:-1 !important}
+.tka-editor-inline button.tka-editor-button,.tka-editor-modes button.tka-editor-button {font:500 13px/1.75 Roboto,Helvetica,Arial,sans-serif;border:0;background:transparent;border-radius:4px;padding:4px 12px;color:var(--tka-action-color,#041863);cursor:pointer;white-space:nowrap;text-transform:none;box-shadow:none}
+.tka-editor-inline button.tka-editor-button:hover,.tka-editor-modes button.tka-editor-button:hover {background-color:rgba(4,24,99,.06)}
+.tka-editor-inline button.tka-editor-button:disabled,.tka-editor-modes button.tka-editor-button:disabled {opacity:.5;cursor:default}
+.tka-editor-inline button:focus-visible,.tka-editor-modes button:focus-visible,[data-tka-desc-clickable]:focus-visible {outline:2px solid #041863;outline-offset:2px}
+[data-tka-desc-clickable] {cursor:text}
+[data-tka-desc-editing] [data-element-name="panel_description"] > :not(.tka-editor-inline),
+[data-tka-desc-editing] .taskDetailsDescriptionTextarea > :not(.tka-editor-inline),
+[data-tka-desc-editing] [data-element-name="summary_textArea"],
+[data-tka-desc-editing] [data-element-name="summary_editButton"],
+[data-tka-desc-editing] [data-element-name="summary_showEditModuleLink"],
+[data-tka-desc-editing] .tka-markdown:not(.tka-editor-preview),
+[data-tka-desc-editing] [data-element-name="description_showMore"],
+[data-tka-desc-editing] [data-element-name="description_showLess"] {display:none !important}
+[data-tka-desc-editing] [data-element-name="panel_description"], [data-tka-desc-editing] .taskDetailsDescriptionTextarea {display:block !important;cursor:default !important;max-height:none !important;overflow:visible !important}
+.tka-markdown {font:inherit;line-height:1.6;white-space:normal;overflow-wrap:anywhere;color:inherit}
+.tka-markdown p {margin:.6em 0;white-space:pre-wrap}
+.tka-markdown h1,.tka-markdown h2,.tka-markdown h3 {font-size:1.3em;font-weight:650;margin:.9em 0 .4em}
+.tka-markdown ul,.tka-markdown ol {padding-left:1.7em;margin:.5em 0}
+.tka-markdown li {margin:.2em 0}.tka-markdown pre {white-space:pre-wrap;padding:12px;background:#f1f5f9;border-radius:8px}.tka-markdown code {font-family:Consolas,monospace;background:#f1f5f9}.tka-markdown blockquote {border-left:3px solid #cbd5e1;padding-left:12px;margin:10px 0}.tka-markdown table {border-collapse:collapse;width:100%;display:block;overflow-x:auto}.tka-markdown th,.tka-markdown td {border:1px solid #cbd5e1;padding:6px 10px}.tka-markdown input {margin-right:6px}.tka-markdown a {color:#1d4ed8;text-decoration:underline}
+.tka-markdown.tka-collapsed {max-height:180px;overflow:hidden}
+.tka-editor-inline {box-sizing:border-box;width:100%;min-width:0;padding:8px 0;background:#fff;color:inherit;font:inherit;cursor:default;white-space:normal}
+.tka-editor-inline p {margin:8px 0 14px}.tka-editor-modes,.tka-editor-actions {display:flex;gap:8px;align-items:center;margin:12px 0;flex-wrap:wrap}
+[data-tka-editor-heading] {display:flex !important;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.tka-editor-modes {gap:0;justify-content:flex-end;margin:0 0 8px auto;width:fit-content;max-width:100%;border:1px solid #dfe3e8;border-radius:4px;overflow:hidden}
+[data-tka-editor-heading] > .tka-editor-modes {margin:0 0 0 auto}
+.tka-editor-modes button.tka-editor-button {border-radius:0}
+.tka-editor-inline .toastui-editor-defaultUI {min-width:0;max-width:100%}
+.tka-editor-inline .toastui-editor-defaultUI-toolbar {flex-wrap:wrap;height:auto;min-height:45px;padding:0 6px}
+.tka-editor-inline .toastui-editor-toolbar-group {flex-shrink:0}
+.tka-editor-modes button[aria-pressed="true"] {background:#eef0f6;color:#041863}
+.tka-editor-source {box-sizing:border-box;width:100%;min-height:340px;padding:12px;font:inherit;line-height:1.6;resize:vertical;border:1px solid #dfe3e8;border-radius:4px;color:inherit;background:#fff}
+.tka-editor-status {color:#445c78;font-size:13px}.tka-editor-status:empty {display:none}.tka-editor-actions {justify-content:flex-end;margin:8px 0 0}.tka-editor-actions button.tka-primary {background:#041863;color:white;min-width:64px}
+.tka-editor-actions button.tka-primary:hover {filter:brightness(.9);background:#041863}
+.tka-editor-inline [hidden] {display:none !important}

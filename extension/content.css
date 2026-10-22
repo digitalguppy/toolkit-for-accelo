@@ -1,0 +1,40 @@
+.tka-cell { box-sizing:border-box!important; width:144px!important; min-width:144px!important; max-width:144px!important; padding:0 12px!important; vertical-align:middle!important; text-align:left!important; }
+.tka-cell:not(.tka-head) { font:inherit; color:inherit; }
+.tka-indicator > span:last-child {font:inherit!important;color:inherit!important;letter-spacing:inherit}
+.tka-rollup {cursor:default!important}
+.tka-rollup:hover {color:inherit!important}
+div.tka-cell { display:flex!important; align-items:center!important; flex:0 0 144px!important; }
+.tka-head { white-space:nowrap!important; }
+.tka-head-inner,.tka-head-label { font:inherit!important; color:inherit!important; letter-spacing:inherit; text-transform:inherit; }
+.tka-head-inner { display:flex; align-items:center; gap:5px; }
+.tka-indicator, .tka-refresh, .tka-error { border:0!important; background:transparent!important; color:inherit!important; font:inherit!important; cursor:pointer!important; padding:6px 0!important; box-shadow:none!important; text-transform:none!important; min-width:0!important; }
+.tka-indicator { display:inline-flex!important; align-items:center!important; gap:8px!important; white-space:nowrap!important; font-variant-numeric:tabular-nums!important; }
+.tka-indicator.tka-completed-indicator {display:flex!important;width:100%!important;justify-content:center!important}
+.tka-indicator:hover, .tka-refresh:hover, .tka-error:hover { color:#116aa8!important; }
+.tka-indicator:focus-visible, .tka-refresh:focus-visible, .tka-error:focus-visible { outline:2px solid #247bb8!important; outline-offset:3px!important; border-radius:3px; }
+.tka-refresh { font-size:17px!important; padding:3px 5px!important; }
+.tka-circle { display:inline-block; width:22px; height:22px; border-radius:50%; background:conic-gradient(#247bb8 var(--tka-progress),#e2e7ec 0); position:relative; flex:none; }
+.tka-circle::after { content:''; position:absolute; inset:4px; background:#fff; border-radius:50%; }
+.tka-bar { display:inline-block; width:62px; height:7px; border-radius:5px; overflow:hidden; background:#e2e7ec; flex:none; }
+.tka-bar-fill { display:block; height:100%; width:var(--tka-progress); background:#247bb8; }
+.tka-complete-tick {display:inline-block;width:20px;height:20px;flex:none;position:relative;border-radius:50%;background:#247bb8}
+.tka-complete-tick::after {content:'';position:absolute;left:7px;top:4px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);box-sizing:border-box}
+.tka-error { color:#a33832!important; font-size:11px!important; }
+.tka-loading { color:#6b7580; font-size:11px; }
+.tka-dialog { box-sizing:border-box; width:min(440px,calc(100vw - 32px)); max-height:80vh; margin:auto; border:1px solid #d9e1e7; border-radius:12px; padding:0; background:#fff; color:#263441; font:14px/1.5 system-ui,sans-serif; box-shadow:0 16px 60px #0003; }
+.tka-dialog::backdrop { background:#14233455; }
+.tka-dialog header { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 20px; border-bottom:1px solid #e5e9ed; }
+.tka-dialog h2 { margin:0; font-size:16px; font-weight:600; }
+.tka-dialog button { font:inherit; cursor:pointer; border:1px solid #cad4dd; background:#fff; border-radius:6px; padding:6px 10px; color:#263441; }
+.tka-dialog button:focus-visible { outline:2px solid #247bb8; outline-offset:2px; }
+.tka-dialog .tka-dialog-body { padding:18px 20px; }
+.tka-dialog .tka-dialog-meta { color:#62717c; margin:0 0 12px; font-size:12px; }
+.tka-dialog h3 { font-size:13px; margin:16px 0 6px; }
+.tka-dialog ul { list-style:none; margin:0; padding:0; }
+.tka-dialog li { display:flex; gap:10px; align-items:flex-start; margin:10px 0; overflow-wrap:anywhere; }
+.tka-dialog .tka-item-mark { flex:none; color:#247bb8; }
+.tka-dialog .tka-completed { text-decoration:line-through; color:#65737d; }
+.tka-dialog .tka-completed-by { margin-left:auto; font-size:12px; color:#65737d; flex:0 0 auto; max-width:35%; }
+.tka-dialog input.tka-item-mark { appearance:auto; width:16px; height:16px; margin:3px 0; accent-color:#247bb8; cursor:pointer; }
+.tka-dialog footer { display:flex; align-items:center; justify-content:space-between; padding:12px 20px; border-top:1px solid #e5e9ed; font-size:12px; color:#62717c; }
+@media(pointer:coarse) { .tka-indicator,.tka-refresh { min-height:44px!important; } }

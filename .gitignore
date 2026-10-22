@@ -1,0 +1,9 @@
+node_modules/
+release/
+__pycache__/
+qa/
+QA.md
+LOCAL-HISTORY.md
+.env
+.env.*
+*.log

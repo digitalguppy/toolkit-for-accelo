@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>Toolkit for Accelo</title>
+  <rect x="4" y="4" width="120" height="120" rx="25" fill="#6553b5"/>
+  <path d="M29 4h70a25 25 0 0 1 25 25v9H4v-9A25 25 0 0 1 29 4Z" fill="#7865c9"/>
+  <path d="M26 34h76v20H75v45H53V54H26Z" fill="#fff"/>
+  <rect x="89" y="76" width="14" height="23" rx="3" fill="#ff936c"/>
+</svg>

@@ -1,0 +1,32 @@
+.customListTable .tka-retainer-cell {min-width:200px;width:200px;max-width:240px;white-space:normal;text-align:center;vertical-align:middle;}
+.customListTable th.tka-retainer-cell > div {padding:0;height:auto;line-height:normal;}
+.customListTable .tka-retainer-cell > .tka-retainer-usage {min-width:180px;font:inherit;line-height:normal;height:auto;padding:0;}
+.tka-retainer-bar {position:relative;isolation:isolate;overflow:hidden;border-radius:3px;height:22px;box-sizing:border-box;border:1px solid #d5d5d5;background:#fff;text-align:center;color:#999;}
+.tka-retainer-fill,.tka-retainer-over {position:absolute;inset:0 auto 0 0;background:#e9ffee;z-index:-1;}
+.tka-retainer-over {left:auto;right:0;background:#fee;}
+.tka-retainer-label {display:block;padding:0 4px;line-height:20px;}
+.tka-retainer-on-budget {color:#1c9a0e;}
+.tka-retainer-over-budget {color:#b51212;}
+.tka-retainer-note {display:block;font-size:12px;line-height:14px;margin-top:1px;}
+.tka-retainer-note:hover {text-decoration:underline;}
+.tka-retainer-empty {opacity:.7;}
+.customListTable [data-tka-period="tasks"] {width:100px;min-width:100px;max-width:120px;}
+.customListTable [data-tka-period="tasks"] > .tka-retainer-usage {min-width:0;}
+.tka-retainer-tasks {display:flex;justify-content:center;gap:6px;align-items:center;}
+.tka-retainer-task-count {display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:22px;padding:0 5px;box-sizing:border-box;border:1px solid #d5d5d5;border-radius:3px;background:#fff;font-weight:700;line-height:20px;}
+.tka-retainer-task-count:hover {text-decoration:underline;}
+.tka-retainer-task-count:focus-visible {outline:2px solid currentColor;outline-offset:2px;}
+.tka-retainer-task-active {color:#1c9a0e;}
+.tka-retainer-task-overdue {color:#c65b00;}
+.tka-retainer-task-heading {display:block;font-weight:normal;line-height:14px;}
+.customListTable th[data-tka-period="tasks"] {vertical-align:middle;text-align:center;line-height:normal;}
+.customListTable th[data-tka-period="tasks"] > .bold {display:block;line-height:16px;}
+.customListTable th[data-tka-period="tasks"] > .tka-retainer-task-heading {display:block;margin:0;height:14px!important;line-height:14px;}
+html[data-tka-theme="dark"] .tka-retainer-task-count {background:#223140!important;border-color:#52687b!important;}
+html[data-tka-theme="dark"] .tka-retainer-bar {background:#223140!important;border-color:#52687b!important;color:#e3e9f0!important;}
+html[data-tka-theme="dark"] .tka-retainer-fill {background:#20482d!important;}
+html[data-tka-theme="dark"] .tka-retainer-over {background:#883e48!important;}
+html[data-tka-theme="dark"] .tka-retainer-on-budget,html[data-tka-theme="dark"] .tka-retainer-task-active {color:#7ee084!important;}
+html[data-tka-theme="dark"] .tka-retainer-over-budget {color:#ff9696!important;}
+html[data-tka-theme="dark"] .tka-retainer-task-overdue {color:#ffb66e!important;}
+html[data-tka-theme="dark"] .tka-retainer-budget {color:#bbc5cd!important;}

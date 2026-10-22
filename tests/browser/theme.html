@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Toolkit theme browser checks</title>
+<style>body{font:16px system-ui;background:#fff;color:#222;padding:30px}section{padding:20px;margin:20px 0;border:1px solid #ddd;background:#f8f9fa}input,button,textarea{font:inherit;padding:10px;border:1px solid #ccc;background:#fff;color:#123}a{color:#176ca6}.late{padding:24px}</style>
+<script src="../../extension/vendor/theme-proxy.js"></script>
+<script>
+  var themeListeners=[],themeValue='light';
+  window.chrome={storage:{local:{get:async()=>({toolkitSettings:{theme:themeValue}})},onChanged:{addListener:f=>themeListeners.push(f)}},runtime:{sendMessage:async()=>({ok:false})}};
+  function chooseTheme(theme){themeValue=theme;for(const listener of themeListeners)listener({toolkitSettings:{newValue:{theme}}},'local');document.getElementById('selected').textContent=theme;}
+</script>
+<script src="../../extension/vendor/theme.js"></script><script src="../../extension/theme.js"></script>
+</head><body>
+<h1>Toolkit theme browser checks</h1><p>Local fixture. No Accelo records or network writes.</p>
+<nav><button onclick="chooseTheme('light')">Light</button> <button onclick="chooseTheme('dark')">Dark</button> <button onclick="chooseTheme('system')">System</button> <span id="selected">light</span></nav>
+<section id="panel"><h2>Existing panel</h2><p id="sample">Readable text and <a href="#panel">links</a>.</p><input value="Normal input"><textarea>Draft remains unchanged</textarea><button onclick="var s=document.createElement('style');document.head.append(s);s.sheet.insertRule('.late{background:#fff;color:#222}');var p=document.createElement('div');p.className='late';p.textContent='Late CSSOM panel';document.body.append(p)">Open late panel</button></section>
+<section class="tka-editor-inline"><textarea class="tka-editor-source">Toolkit editor sample</textarea><div class="tka-editor-actions"><button class="tka-editor-button">Cancel</button><button class="tka-editor-button tka-primary">Save</button></div></section>
+<section><h2>Activity chart regression</h2><div class="fusioncharts-container"><svg width="600" height="180" viewBox="0 0 600 180" aria-label="Synthetic hours chart">
+<g class="raphael-group-466-background"><rect id="chart-background" width="600" height="180" fill="#ffffff" style="fill:#ffffff;fill-opacity:.5"/><rect width="600" height="180" fill="none"/></g>
+<g class="raphael-group-473-canvas"><rect x="40" y="10" width="550" height="130" fill="#ffffff" style="fill:#ffffff;fill-opacity:0"/></g>
+<g class="raphael-group-485-y-axis-bands"><rect x="40" y="40" width="550" height="30" fill="#ffffff" style="fill:#ffffff;fill-opacity:.5"/></g>
+<g class="raphael-group-487-y-axis-lines"><path d="M40 70H590" stroke="#cccccc"/></g>
+<g class="fusioncharts-xaxis-0-gridlabels"><text id="chart-label" x="40" y="165" style="fill:#7e7e7e">Oct 19 26</text></g>
+<g class="raphael-group-467-dataset"><path id="chart-series" d="M40 120L150 95L250 105L350 30L460 75L590 50" fill="none" stroke="#33cc66" stroke-width="3"/></g>
+</svg></div></section>
+</body></html>
