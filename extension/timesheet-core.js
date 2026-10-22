@@ -1,11 +1,16 @@
 (function(root) {
   'use strict';
-  const origin = 'https://digitalguppy.accelo.com';
   const actions = Object.freeze({view_task:'task',view_issue:'issue',view_company:'company',view_contract_period:'contract_period',view_job:'job',view_milestone:'milestone',view_contract:'contract'});
   function identify(cell) {
+    const origin = cell?.ownerDocument?.location?.origin;
+    if (!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(origin || '')) return null;
     const heading = cell?.querySelector('.ts_work_obj_parent');
     const link = heading?.querySelector('a');
     if (!link) return null;
+    if (link.hasAttribute('href')) {
+      try {const target = new URL(link.getAttribute('href'), origin); if (target.origin !== origin || target.username || target.password) return null;}
+      catch {return null;}
+    }
     let id = heading.getAttribute('data-task_id'), table = 'task';
     if (!id) {
       try {

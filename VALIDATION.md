@@ -1,10 +1,10 @@
 # Validation and release status
 
-This is a private preview release for Digital Guppy's Accelo tenant. It has not been submitted to the Chrome or Edge extension stores.
+This is a public preview release for HTTPS Accelo tenant subdomains. It has not been submitted to the Chrome or Edge extension stores.
 
 ## Checked
 
-- v0.12.3 builds and passes all 134 automated tests. Release checks confirm Outlook files and Microsoft permissions are absent, and settings still save with preferences from older versions.
+- v0.13.0 builds and passes all 136 automated tests, including regression coverage for a second synthetic tenant and cross-tenant link rejection. Release checks confirm Outlook files and Microsoft permissions are absent, and settings still save with preferences from older versions.
 
 - Manifest V3 assets, locally bundled dependencies and permission boundaries are covered by the automated package tests.
 - Light, Dark and System preferences, forced colours and print restoration are covered by theme tests.
@@ -13,6 +13,8 @@ This is a private preview release for Digital Guppy's Accelo tenant. It has not 
 - Chart background, axis label, plot-band and search-placeholder fixes were verified with temporary live CSS previews.
 
 ## Still pending
+
+- A live second-tenant check. Tenant portability is covered by synthetic tests; regional assets and account-specific layouts may differ.
 
 - The latest installed extension needs an Edge reload and fresh visual verification. Previous chart previews do not prove the reloaded package is active.
 - The controlled chart fixture's Light/Dark switching check was interrupted by an open browser extension popup.

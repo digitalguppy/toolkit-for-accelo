@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Toolkit for Accelo",
-  "version": "0.12.3",
+  "version": "0.13.0",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",
@@ -34,7 +34,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://digitalguppy.accelo.com/*"
+        "https://*.accelo.com/*"
       ],
       "js": [
         "vendor/theme-proxy.js"
@@ -44,7 +44,7 @@
     },
     {
       "matches": [
-        "https://digitalguppy.accelo.com/*"
+        "https://*.accelo.com/*"
       ],
       "js": [
         "vendor/theme.js",
@@ -54,7 +54,7 @@
     },
     {
       "matches": [
-        "https://digitalguppy.accelo.com/*"
+        "https://*.accelo.com/*"
       ],
       "js": [
         "core.js",
@@ -79,7 +79,7 @@
     },
     {
       "matches": [
-        "https://digitalguppy.accelo.com/*"
+        "https://*.accelo.com/*"
       ],
       "js": [
         "timesheet-core-main.js",
@@ -90,7 +90,7 @@
     },
     {
       "matches": [
-        "https://digitalguppy.accelo.com/*"
+        "https://*.accelo.com/*"
       ],
       "js": [
         "retainers-bridge.js"

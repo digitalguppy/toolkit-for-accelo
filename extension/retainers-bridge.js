@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const route=new URL(location.href);
-  if(route.origin!=='https://digitalguppy.accelo.com'||route.searchParams.get('action')!=='list'||route.searchParams.get('list_type')!=='retainer'||globalThis.ToolkitRetainerBridge)return;
+  if(!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(route.origin)||route.searchParams.get('action')!=='list'||route.searchParams.get('list_type')!=='retainer'||globalThis.ToolkitRetainerBridge)return;
   globalThis.ToolkitRetainerBridge=true;
   let busy=false;
   function numeric(v){return v!==null&&v!==''&&Number.isFinite(Number(v))?Number(v):null;}

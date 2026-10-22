@@ -24,11 +24,11 @@ test('completion choices migrate the old tick switch and explicit choices take p
   assert.equal(C.settings({completion:'hide',completedTick:true}).completedTick,false);
   assert.equal(C.settings({completion:'invalid'}).completion,'normal');
 });
-test('route recognition is tenant-bound and covers all supported pages', () => {
+test('route recognition supports Accelo tenant subdomains and covers all supported pages', () => {
   assert.equal(C.route('https://digitalguppy.accelo.com/app/projects/45?tab=Overview'),'modern');
   assert.equal(C.route('https://digitalguppy.accelo.com/?action=force_view_job&id=45#?selected_tab=overview#END'),'classic');
   assert.equal(C.route('https://digitalguppy.accelo.com/?action=view_milestone&id=260'),'milestone');
-  assert.equal(C.route('https://other.accelo.com/app/projects/45'),null);
+  assert.equal(C.route('https://other.accelo.com/app/projects/45'),'modern');
   assert.equal(C.route('https://digitalguppy.accelo.com/app/tickets/45'),null);
 });
 test('multiple checklists flatten correctly and repeated item IDs do not inflate progress', () => {

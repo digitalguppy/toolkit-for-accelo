@@ -10,7 +10,7 @@ function row(heading,relocate=true){return `<tr><td class="ts_against_cell"><div
 const task=row('data-task_id="2018"><a>Nested task</a></h1>');
 const ticket=row('><a href="/?action=view_issue&id=1988">Ticket</a></h1>',false);
 async function setup(t,options={}){
-  const dom=new JSDOM(`<table><tbody>${task}${ticket}</tbody></table>`,{url:'https://digitalguppy.accelo.com/?action=timesheet_entry',runScripts:'outside-only'});t.after(()=>dom.window.close());
+  const dom=new JSDOM(`<table><tbody>${task}${ticket}</tbody></table>`,{url:'https://example-team.accelo.com/?action=timesheet_entry',runScripts:'outside-only'});t.after(()=>dom.window.close());
   const w=dom.window,d=w.document;let changed;const calls=[];
   w.chrome={storage:{local:{get:async()=>({toolkitSettings:{weeklyTimers:options.enabled!==false}})},onChanged:{addListener:fn=>changed=fn}}};
   w.eval(read('core.js'));w.eval(read('timesheet-core.js'));w.eval(read('timesheets.js'));await wait(5);
@@ -21,13 +21,13 @@ async function setup(t,options={}){
   return{w,d,calls,press(button,trusted=true){click({target:button,isTrusted:trusted,preventDefault(){},stopPropagation(){}});},set(enabled){changed({toolkitSettings:{newValue:{weeklyTimers:enabled}}},'local');}};
 }
 test('row identity uses the task or primary heading link, never breadcrumbs',()=>{
-  const d=new JSDOM(`<table>${task}${ticket}</table>`).window.document;
+  const d=new JSDOM(`<table>${task}${ticket}</table>`,{url:"https://example-team.accelo.com/"}).window.document;
   assert.deepEqual(T.identify(d.querySelectorAll('td')[0]),{engagement:{id:'2018',table:'task'},subject:'Nested task'});
   assert.deepEqual(T.identify(d.querySelectorAll('td')[1]),{engagement:{id:'1988',table:'issue'},subject:'Ticket'});
 });
 test('unsupported headings, external links and malformed IDs do not create timers',()=>{
   for(const href of ['https://other.test/?action=view_task&id=1','/?action=view_task&id=0','/?action=view_task&id=12x','/?action=view_staff&id=2']){
-    const dom=new JSDOM(`<table>${row(`><a href="${href}">Invalid</a></h1>`)}</table>`);
+    const dom=new JSDOM(`<table>${row(`><a href="${href}">Invalid</a></h1>`)}</table>`,{url:"https://example-team.accelo.com/"});
     assert.equal(T.identify(dom.window.document.querySelector('td')),null);dom.window.close();
   }
 });

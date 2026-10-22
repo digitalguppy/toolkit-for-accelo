@@ -19,8 +19,10 @@
       fill:ratio===null?0:Math.max(0,Math.min(100,ratio>1?100/ratio:ratio*100)),over:ratio>1?100-100/ratio:0};
   }
   function rowId(row) {
-    for(const a of row.querySelectorAll('a[href]')) {try {const u=new URL(a.getAttribute('href'),'https://digitalguppy.accelo.com');
-      if(u.origin==='https://digitalguppy.accelo.com'&&u.pathname==='/'&&u.searchParams.get('action')==='view_contract'&&/^[1-9]\d*$/.test(u.searchParams.get('id')||''))return u.searchParams.get('id');
+    const origin = row?.ownerDocument?.location?.origin;
+    if (!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(origin || '')) return null;
+    for(const a of row.querySelectorAll('a[href]')) {try {const u=new URL(a.getAttribute('href'),origin);
+      if(u.origin===origin&&!u.username&&!u.password&&u.pathname==='/'&&u.searchParams.get('action')==='view_contract'&&/^[1-9]\d*$/.test(u.searchParams.get('id')||''))return u.searchParams.get('id');
     }catch{}}
     return null;
   }

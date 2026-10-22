@@ -22,7 +22,7 @@ test('unlimited, fixed-value, restricted financials and missing data remain dist
   assert.equal(R.period({...period,allowance_type:'unlimited_hours'},false).label,'6m / Unlimited');
   assert.equal(R.period({...period,allowance:{billable:0}}).ratio,null);
 });
-function dom(){return new JSDOM('<table class="customListTable"><thead><tr><th>Title</th><th>Actions</th></tr></thead><tbody><tr><td><a href="/?action=view_contract&id=36">Retainer</a></td><td><button>Native action</button></td></tr></tbody></table>',{url:'https://digitalguppy.accelo.com/?action=list&list_type=retainer',runScripts:'outside-only'});}
+function dom(){return new JSDOM('<table class="customListTable"><thead><tr><th>Title</th><th>Actions</th></tr></thead><tbody><tr><td><a href="/?action=view_contract&id=36">Retainer</a></td><td><button>Native action</button></td></tr></tbody></table>',{url:'https://example-team.accelo.com/?action=list&list_type=retainer',runScripts:'outside-only'});}
 test('columns stay aligned, update reused rows, preserve stale data during reads and toggle independently',async t=>{
   const d=dom(),w=d.window;t.after(()=>w.close());let change,request,reads=0;
   w.chrome={storage:{local:{get:async()=>({})},onChanged:{addListener:f=>change=f}}};

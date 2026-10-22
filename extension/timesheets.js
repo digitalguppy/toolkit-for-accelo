@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  if (location.origin !== 'https://digitalguppy.accelo.com' || new URL(location.href).searchParams.get('action') !== 'timesheet_entry' || globalThis.ToolkitWeeklyTimers) return;
+  if (!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(location.origin) || new URL(location.href).searchParams.get('action') !== 'timesheet_entry' || globalThis.ToolkitWeeklyTimers) return;
   globalThis.ToolkitWeeklyTimers = true;
   const C = globalThis.ToolkitAccelo, T = globalThis.ToolkitTimesheet;
   let prefs = C.settings(), revision = 0, scheduled = false;

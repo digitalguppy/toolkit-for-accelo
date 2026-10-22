@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  if (location.origin !== 'https://digitalguppy.accelo.com' || new URL(location.href).searchParams.get('action') !== 'timesheet_entry' || globalThis.ToolkitTimerBridge) return;
+  if (!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(location.origin) || new URL(location.href).searchParams.get('action') !== 'timesheet_entry' || globalThis.ToolkitTimerBridge) return;
   globalThis.ToolkitTimerBridge = true;
   const recent = new Map();
   document.addEventListener('click', event => {

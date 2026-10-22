@@ -8,7 +8,7 @@ const root=path.join(__dirname,'..');
 const source=fs.readFileSync(path.join(root,'extension/theme.js'),'utf8');
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 async function setup(theme, systemDark=false, deferred=false) {
-  const dom=new JSDOM('<html><body><div id="original">Description and checklist</div></body></html>',{url:'https://digitalguppy.accelo.com/app/projects/45',runScripts:'outside-only'});
+  const dom=new JSDOM('<html><body><div id="original">Description and checklist</div></body></html>',{url:'https://example-team.accelo.com/app/projects/45',runScripts:'outside-only'});
   const w=dom.window, calls=[], media=new Map();let changed, resolve;
   w.matchMedia=q=>{if(!media.has(q))media.set(q,{matches:q.includes('prefers')&&systemDark,listeners:[],addEventListener(_,f){this.listeners.push(f);}});return media.get(q);};
   w.ToolkitThemeEngine={enable:(o,f)=>{calls.push('enable');w.document.documentElement.dataset.darkreaderMode='dynamic';},disable:()=>{calls.push('disable');delete w.document.documentElement.dataset.darkreaderMode;},setFetchMethod:f=>{}};
@@ -59,15 +59,17 @@ test('theme bundle leaves chrome runtime untouched and has no inline script inje
 function background(fetcher) {
   let listener;const context={importScripts(){},URL,TextDecoder,Uint8Array,AbortSignal,fetch:fetcher,chrome:{runtime:{id:'toolkit',onMessage:{addListener:f=>listener=f},openOptionsPage(){}},action:{onClicked:{addListener(){}}}}};
   vm.runInNewContext(fs.readFileSync(path.join(root,'extension/background.js'),'utf8'),context);
-  const sender={id:'toolkit',tab:{id:1},url:'https://digitalguppy.accelo.com/app/projects/45'};
+  const sender={id:'toolkit',tab:{id:1},url:'https://example-team.accelo.com/app/projects/45'};
   return (url,override={})=>new Promise(resolve=>listener({type:'tka-theme-css',url},{...sender,...override},resolve));
 }
 test('stylesheet bridge only reads approved CSS without cookies and reuses successful reads',async()=>{
   let calls=0;const read=background(async(url,options)=>{calls++;assert.equal(options.credentials,'omit');assert.equal(options.redirect,'error');assert.equal(options.referrerPolicy,'no-referrer');return new Response('body {color: navy}',{headers:{'content-type':'text/css'}});});
   const url='https://d203gnlohy77cz.cloudfront.net/abc/_next/static/css/test.css';
   assert.equal((await read(url)).css,'body {color: navy}');assert.equal((await read(url)).ok,true);assert.equal(calls,1);
-  for(const bad of ['https://evil.example/test.css','https://digitalguppy.accelo.com/app/tasks/2018','https://d203gnlohy77cz.cloudfront.net/secret.json',url+'?token=123','http://d203gnlohy77cz.cloudfront.net/test.css']) assert.equal((await read(bad)).ok,false);
+  for(const bad of ['https://evil.example/test.css','https://example-team.accelo.com/app/tasks/2018','https://d203gnlohy77cz.cloudfront.net/secret.json',url+'?token=123','http://d203gnlohy77cz.cloudfront.net/test.css']) assert.equal((await read(bad)).ok,false);
   assert.equal((await read(url,{url:'https://evil.example/'})).ok,false);
+  assert.equal((await read(url,{url:'https://second-team.accelo.com/app/projects/1'})).ok,true);
+  for(const senderURL of ['https://accelo.com/','https://team.accelo.com.evil.test/','http://team.accelo.com/','https://user@team.accelo.com/','https://team.accelo.com:8443/'])assert.equal((await read(url,{url:senderURL})).ok,false);
   assert.equal((await read(url,{id:'another-extension'})).ok,false);assert.equal(calls,1);
 });
 test('invalid, failed and oversized CSS responses are rejected and failures can be retried',async()=>{
@@ -78,7 +80,7 @@ test('invalid, failed and oversized CSS responses are rejected and failures can 
 
 test('font-only imports are skipped without sending a background request',async()=>{
   let fetchStyle,calls=0;
-  const dom=new JSDOM('',{url:'https://digitalguppy.accelo.com/app/projects/45',runScripts:'outside-only'});
+  const dom=new JSDOM('',{url:'https://example-team.accelo.com/app/projects/45',runScripts:'outside-only'});
   try {
     const w=dom.window;w.Response=Response;
     w.matchMedia=()=>({matches:false,addEventListener(){}});

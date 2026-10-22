@@ -1,6 +1,6 @@
 {
   "name": "toolkit-for-accelo",
-  "version": "0.12.3",
+  "version": "0.13.0",
   "private": true,
   "description": "Local source and validation for Toolkit for Accelo",
   "scripts": {

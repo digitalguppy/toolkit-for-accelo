@@ -24,7 +24,7 @@
   }
   function route(href) {
     const url = new URL(href);
-    if (url.origin !== 'https://digitalguppy.accelo.com') return null;
+    if (!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(url.origin) || url.username || url.password) return null;
     if (/^\/app\/projects\/\d+\/?$/.test(url.pathname)) return (url.searchParams.get('tab') || 'Overview').toLowerCase() === 'overview' ? 'modern' : null;
     if (url.pathname !== '/') return null;
     const selectedTab = url.hash.match(/selected_tab=([^&#%]+)/i)?.[1];

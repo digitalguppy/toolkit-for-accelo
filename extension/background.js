@@ -5,6 +5,10 @@ chrome.action.onClicked.addListener(() => chrome.runtime.openOptionsPage());
 // business URLs, images, arbitrary sites, credentials or redirects.
 const themeAssetHosts = new Set(['d203gnlohy77cz.cloudfront.net', 'd23xudf289lfof.cloudfront.net']);
 const themeCSSCache = new Map();
+function isAcceloPage(raw) {
+  try {const page = new URL(raw); return /^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(page.origin) && !page.username && !page.password;}
+  catch {return false;}
+}
 function allowedThemeCSS(raw) {
   try {
     const url = new URL(raw);
@@ -37,7 +41,7 @@ async function readThemeCSS(url) {
 }
 chrome.runtime.onMessage.addListener((message, sender, respond) => {
   if (message?.type !== 'tka-theme-css') return;
-  if (sender.id !== chrome.runtime.id || !sender.tab || !/^https:\/\/digitalguppy\.accelo\.com\//.test(sender.url || '') || !allowedThemeCSS(message.url)) {
+  if (sender.id !== chrome.runtime.id || !sender.tab || !isAcceloPage(sender.url) || !allowedThemeCSS(message.url)) {
     respond({ok: false, error: 'Stylesheet URL or sender is not allowed'}); return;
   }
   readThemeCSS(message.url).then(css => respond({ok: true, css}), error => respond({ok: false, error: error.message}));

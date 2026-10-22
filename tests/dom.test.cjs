@@ -22,7 +22,7 @@ async function setup(markup,url,prefs={}) {
   return {dom,w,requests,changeData(){changed=true;},async update(next){currentPrefs=next;listeners.forEach(f=>f({toolkitSettings:{newValue:next}},'local'));await delay(160);},close(){w.__toolkitAccelo.stop();w.close();}};
 }
 test('classic adapter inserts aligned cells, supports expansion and avoids duplicate cells or requests',async()=>{
-  const ctx=await setup(classic,'https://digitalguppy.accelo.com/?action=force_view_job&id=45');
+  const ctx=await setup(classic,'https://example-team.accelo.com/?action=force_view_job&id=45');
   try {
     const d=ctx.w.document;
     assert.equal(d.querySelectorAll('.tka-head').length,1);assert.equal(d.querySelectorAll('.tka-cell').length,3);
@@ -35,7 +35,7 @@ test('classic adapter inserts aligned cells, supports expansion and avoids dupli
   } finally {ctx.close();}
 });
 test('modern adapter has placeholders for milestones and a separate matching header',async()=>{
-  const ctx=await setup(modern,'https://digitalguppy.accelo.com/app/projects/45?tab=Overview');
+  const ctx=await setup(modern,'https://example-team.accelo.com/app/projects/45?tab=Overview');
   try {
     const d=ctx.w.document;assert.equal(d.querySelectorAll('.tka-cell').length,4);
     assert.equal(d.querySelector('thead tr').children[1].textContent,'Checklist↻');
@@ -47,7 +47,7 @@ test('modern adapter has placeholders for milestones and a separate matching hea
   } finally {ctx.close();}
 });
 test('all six display combinations work, and disabling removes every toolkit element',async()=>{
-  const ctx=await setup(classic,'https://digitalguppy.accelo.com/?action=view_milestone&id=260');
+  const ctx=await setup(classic,'https://example-team.accelo.com/?action=view_milestone&id=260');
   try {
     for(const style of ['circle','bar','text'])for(const label of ['count','percentage']){
       await ctx.update({style,label});const d=ctx.w.document;
@@ -59,7 +59,7 @@ test('all six display combinations work, and disabling removes every toolkit ele
   } finally {ctx.close();}
 });
 test('optional completion tick replaces all progress styles and stays clickable in every overview',async()=>{
-  for(const [markup,url] of [[modern,'https://digitalguppy.accelo.com/app/projects/45'],[classic,'https://digitalguppy.accelo.com/?action=force_view_job&id=45'],[classic,'https://digitalguppy.accelo.com/?action=view_milestone&id=260']]){
+  for(const [markup,url] of [[modern,'https://example-team.accelo.com/app/projects/45'],[classic,'https://example-team.accelo.com/?action=force_view_job&id=45'],[classic,'https://example-team.accelo.com/?action=view_milestone&id=260']]){
     const ctx=await setup(markup,url);try{
       ctx.changeData();const d=ctx.w.document;
       for(const style of ['bar','circle','text'])for(const label of ['count','percentage']){
@@ -74,7 +74,7 @@ test('optional completion tick replaces all progress styles and stays clickable 
   }
 });
 test('empty checklists and rounded-up percentages never show a completed tick',async()=>{
-  const ctx=await setup(modern,'https://digitalguppy.accelo.com/app/projects/45',{completedTick:true});try{
+  const ctx=await setup(modern,'https://example-team.accelo.com/app/projects/45',{completedTick:true});try{
     const d=ctx.w.document;assert.equal(d.querySelector('.tka-complete-tick'),null);assert.equal(d.querySelector('[data-tka-task="2019"]').textContent,'');
     ctx.w.fetch=async(url,options)=>{
       const id=JSON.parse(options.body).variables.id,result=response(id);if(id===2018)result.data.tasks.edges[0].node.checklist[0].checklistItems=Array.from({length:201},(_,i)=>({id:String(i),title:'Item '+i,isCompleted:i<200}));
@@ -85,7 +85,7 @@ test('empty checklists and rounded-up percentages never show a completed tick',a
   }finally{ctx.close();}
 });
 test('completed indicators can hide without removing rows and return after a reopened item refreshes',async()=>{
-  for(const [markup,url] of [[modern,'https://digitalguppy.accelo.com/app/projects/45'],[classic,'https://digitalguppy.accelo.com/?action=force_view_job&id=45'],[classic,'https://digitalguppy.accelo.com/?action=view_milestone&id=260']]){
+  for(const [markup,url] of [[modern,'https://example-team.accelo.com/app/projects/45'],[classic,'https://example-team.accelo.com/?action=force_view_job&id=45'],[classic,'https://example-team.accelo.com/?action=view_milestone&id=260']]){
     const ctx=await setup(markup,url,{completion:'hide'});try{
       const d=ctx.w.document,cell=d.querySelector('[data-tka-task="2018"]');assert(cell.querySelector('.tka-indicator'));
       ctx.changeData();ctx.w.__toolkitAccelo.refresh();await delay(180);assert(cell.isConnected);assert.equal(cell.children.length,0);
@@ -96,7 +96,7 @@ test('completed indicators can hide without removing rows and return after a reo
   }
 });
 test('dialog treats item titles as text, opens read-only and refreshes actual progress',async()=>{
-  const ctx=await setup(classic,'https://digitalguppy.accelo.com/?action=view_milestone&id=260');
+  const ctx=await setup(classic,'https://example-team.accelo.com/?action=view_milestone&id=260');
   try {
     const d=ctx.w.document;d.querySelector('.tka-indicator').click();
     assert(d.querySelector('dialog').open);assert.equal(d.querySelectorAll('dialog img').length,0);
@@ -109,7 +109,7 @@ test('dialog treats item titles as text, opens read-only and refreshes actual pr
   } finally {ctx.close();}
 });
 test('navigation out of overview removes the column; returning recreates it once',async()=>{
-  const ctx=await setup(modern,'https://digitalguppy.accelo.com/app/projects/45?tab=Overview');
+  const ctx=await setup(modern,'https://example-team.accelo.com/app/projects/45?tab=Overview');
   try {
     ctx.w.history.pushState({},'','?tab=Stream');ctx.w.dispatchEvent(new ctx.w.PopStateEvent('popstate'));await delay(160);
     assert.equal(ctx.w.document.querySelectorAll('[data-tka-owned]').length,0);
@@ -118,7 +118,7 @@ test('navigation out of overview removes the column; returning recreates it once
   } finally {ctx.close();}
 });
 test('request errors offer retry and never render an empty success',async()=>{
-  const ctx=await setup(classic,'https://digitalguppy.accelo.com/?action=force_view_job&id=45');
+  const ctx=await setup(classic,'https://example-team.accelo.com/?action=force_view_job&id=45');
   try {
     ctx.w.fetch=async()=>({ok:false,status:403});ctx.w.__toolkitAccelo.refresh(true);await delay(160);
     const retry=ctx.w.document.querySelector('.tka-error');assert(retry);assert.equal(retry.textContent,'Retry');assert.match(retry.title,/Sign in/);
@@ -151,7 +151,7 @@ test('settings save independent style and label, update preview and restore disa
   assert.equal(writes.at(-1).toolkitSettings.markdownDisplay,false);assert.equal(writes.at(-1).toolkitSettings.markdownEditor,true);assert.equal(writes.at(-1).toolkitSettings.descriptionExpanded,true);w.close();
 });
 test('background refresh retains existing progress until replacement data arrives, including on failure',async()=>{
-  const ctx=await setup(classic,'https://digitalguppy.accelo.com/?action=force_view_job&id=45');
+  const ctx=await setup(classic,'https://example-team.accelo.com/?action=force_view_job&id=45');
   try {
     const d=ctx.w.document;let release;
     ctx.w.fetch=async()=>{await new Promise(r=>release=r);return {ok:true,json:async()=>response(2018,true)};};
@@ -163,7 +163,7 @@ test('background refresh retains existing progress until replacement data arrive
   }finally{ctx.close();}
 });
 test('interactive checklist verifies completion, displays returned person and restores progress after undo',async()=>{
-  const ctx=await setup(classic,'https://digitalguppy.accelo.com/?action=force_view_job&id=45',{completedTick:true});
+  const ctx=await setup(classic,'https://example-team.accelo.com/?action=force_view_job&id=45',{completedTick:true});
   try {
     let completed=false, writes=0;
     ctx.w.fetch=async(url,options)=>{
@@ -183,7 +183,7 @@ test('interactive checklist verifies completion, displays returned person and re
 test('milestone rows total hidden tasks only when enabled in modern and classic views',async()=>{
   for(const v4 of [true,false]){
     const markup=v4?modern:classic.replace('<td>Milestone</td>','<td><a href="/?action=view_milestone&id=260">Milestone</a></td>');
-    const ctx=await setup(markup,v4?'https://digitalguppy.accelo.com/app/projects/45':'https://digitalguppy.accelo.com/?action=force_view_job&id=45');
+    const ctx=await setup(markup,v4?'https://example-team.accelo.com/app/projects/45':'https://example-team.accelo.com/?action=force_view_job&id=45');
     try{
       assert.equal(ctx.requests.filter(r=>r.operationName==='ToolkitMilestoneChildren').length,0);
       let memberCalls=0,complete=false;
@@ -205,7 +205,7 @@ test('milestone rows total hidden tasks only when enabled in modern and classic 
 test('row progress uses native typography in modern and classic views',async()=>{
   for(const v4 of [true,false]){
     const markup=v4?modern.replace('Task_2018</div>','<p data-element-name="CrayonTypography__typography" style="font:400 14px/21px Roboto;color:rgb(30,40,50)">Task_2018</p></div>'):classic.replace('data-element-name="project-overview-task-title"','style="font:400 13px/18px Roboto;color:rgb(50,60,70)" data-element-name="project-overview-task-title"');
-    const ctx=await setup(markup,v4?'https://digitalguppy.accelo.com/app/projects/45':'https://digitalguppy.accelo.com/?action=view_milestone&id=260');
+    const ctx=await setup(markup,v4?'https://example-team.accelo.com/app/projects/45':'https://example-team.accelo.com/?action=view_milestone&id=260');
     try{const cell=ctx.w.document.querySelector('[data-tka-task="2018"]');assert.equal(cell.style.fontFamily,'Roboto');assert.equal(cell.style.fontSize,v4?'14px':'13px');assert.equal(cell.style.fontWeight,'400');}finally{ctx.close();}
   }
 });

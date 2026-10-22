@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  if (!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(location.origin)) return;
   const C=globalThis.ToolkitAccelo, M=globalThis.ToolkitMarkdown;
   if (!C || !M || globalThis.__toolkitDescriptions) return;
   const records=new Map(), owned='data-tka-description-owned';

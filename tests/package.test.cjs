@@ -31,9 +31,9 @@ test('package is Manifest V3, tenant-scoped and contains all declared local asse
   assert.equal(manifest.optional_host_permissions,undefined);
   assert(!JSON.stringify(manifest).match(/outlook|microsoft|identity/i));
   assert(!fs.readdirSync(root).some(file=>/outlook/i.test(file)));
-  assert.deepEqual(manifest.content_scripts[0].matches,['https://digitalguppy.accelo.com/*']);
+  assert.deepEqual(manifest.content_scripts[0].matches,['https://*.accelo.com/*']);
   assert.deepEqual(manifest.host_permissions,['https://d203gnlohy77cz.cloudfront.net/*','https://d23xudf289lfof.cloudfront.net/*']);assert.equal(manifest.action.default_popup,undefined);assert.equal(manifest.options_ui.open_in_tab,true);
-  for(const script of manifest.content_scripts) assert.deepEqual(script.matches,['https://digitalguppy.accelo.com/*']);
+  for(const script of manifest.content_scripts) assert.deepEqual(script.matches,['https://*.accelo.com/*']);
   assert.equal(manifest.content_scripts[0].world,'MAIN');assert.equal(manifest.content_scripts[0].run_at,'document_start');
   const files=[...manifest.content_scripts.flatMap(s=>[...(s.js||[]),...(s.css||[])]),manifest.background.service_worker,manifest.options_ui.page];
   for (const size of [16,32,48,128]) {

@@ -2,7 +2,7 @@
   'use strict';
   const C = globalThis.ToolkitAccelo;
   const action = new URL(location.href).searchParams.get('action');
-  if (location.origin !== 'https://digitalguppy.accelo.com' || !['home_inbox', 'customer_request'].includes(action) || globalThis.ToolkitInbox) return;
+  if (!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(location.origin) || !['home_inbox', 'customer_request'].includes(action) || globalThis.ToolkitInbox) return;
   globalThis.ToolkitInbox = true;
   const requests = action === 'customer_request';
   let prefs = C.settings(), revision = 0, current = null, pending = null, timer;

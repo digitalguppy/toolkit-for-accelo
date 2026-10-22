@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  if (!/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.accelo\.com$/.test(location.origin)) return;
   const engine = globalThis.ToolkitThemeEngine;
   const storage = typeof chrome !== 'undefined' && chrome.storage;
   if (!engine || !storage?.local) return;

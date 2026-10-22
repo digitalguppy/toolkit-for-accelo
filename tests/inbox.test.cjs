@@ -12,7 +12,7 @@ async function waitForUnavailable(x) {
 }
 async function fixture(t,{requests=false,allowed=true,locked=false,enabled=true}={}) {
   const action=requests?'customer_request':'home_inbox';
-  const dom=new JSDOM(`<div id="view_pane_title_block"><h2 class="view_pane_title">Test activity</h2><div class="activity_toolbar"><a ng-click="close_request()">Close</a></div></div><div class="activity_view_full" context="${requests?'request_inbox':'inbox'}" mainactivity="selected_activity"><div class="activity_toolbar"><a ng-click="action(activity);">Action</a><a href="/?action=view_activity&id=12">View</a></div><div class="activity_action_buttons"><div data-element-name="dropdownButton">...</div></div></div>`,{url:`https://digitalguppy.accelo.com/?action=${action}`,runScripts:'outside-only'});
+  const dom=new JSDOM(`<div id="view_pane_title_block"><h2 class="view_pane_title">Test activity</h2><div class="activity_toolbar"><a ng-click="close_request()">Close</a></div></div><div class="activity_view_full" context="${requests?'request_inbox':'inbox'}" mainactivity="selected_activity"><div class="activity_toolbar"><a ng-click="action(activity);">Action</a><a href="/?action=view_activity&id=12">View</a></div><div class="activity_action_buttons"><div data-element-name="dropdownButton">...</div></div></div>`,{url:`https://example-team.accelo.com/?action=${action}`,runScripts:'outside-only'});
   t.after(()=>dom.window.close());
   const w=dom.window,d=w.document;let writes=0,menu=null,listener;
   w.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};
